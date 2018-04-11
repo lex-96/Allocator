@@ -56,8 +56,8 @@ BOOST_AUTO_TEST_SUITE(allocator_test)
 
      int i = 0;
      for(const auto& p : m) {
-         BOOST_CHECK_EQUAL(m.first, i);
-         BOOST_CHECK_EQUAL(m.second, factorial(i++));
+         BOOST_CHECK_EQUAL(p.first, i);
+         BOOST_CHECK_EQUAL(p.second, factorial(i++));
      }
      BOOST_CHECK_EQUAL(my::malloc_counter, 2u);
  }
