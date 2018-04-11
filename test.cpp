@@ -6,6 +6,7 @@
 #include "allocator.h"
 #include "container.h"
 #include "new_delete.h"
+#include "factorial.h"
 
 BOOST_AUTO_TEST_SUITE(allocator_test)
 
