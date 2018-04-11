@@ -15,7 +15,7 @@ namespace my {
 
   void free(void* p) noexcept
   {
-    --alloc_counter:
+    --alloc_counter;
     std::free(p);
     return;
   }
