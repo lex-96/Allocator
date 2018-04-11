@@ -19,9 +19,18 @@ BOOST_AUTO_TEST_SUITE(allocator_test)
     BOOST_CHECK_EQUAL(my::alloc_counter, 2u);
 }
 
-// BOOST_AUTO_TEST_CASE(sdasd) {
-
-// }
+ BOOST_AUTO_TEST_CASE(my_container) {
+     my::alloc_counter = 0;
+     my::container<int> c1;
+     for (int i = 0; i < 10; ++i) {
+         c1.push_back(i);
+     }
+     int i = 0;
+     for(const auto& e : c1) {
+         BOOST_CHECK_EQUAL(e, i++);
+     }
+     BOOST_CHECK_EQUAL(my::alloc_counter, 10u);
+ }
 
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -39,4 +39,6 @@ enable_testing()
 
 add_test(my_container_custom_allocator_10 test_cli)
 
+add_test(my_container test_cli)
+
 
