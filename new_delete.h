@@ -28,54 +28,54 @@ namespace my {
 
 extern "C++" {
 
-void* operator new(std::size_t size) throw (std::bad_alloc)
+inline void* operator new(std::size_t size) throw (std::bad_alloc)
 {
     return my::malloc(size);
 }
 
-void operator delete(void* p) noexcept
+inline void operator delete(void* p) noexcept
 {
     my::free(p);
 }
 
-void* operator new[](std::size_t size) throw (std::bad_alloc)
+inline void* operator new[](std::size_t size) throw (std::bad_alloc)
 {
     return my::malloc(size);
 }
 
-void operator delete[](void* p) throw()
+inline void operator delete[](void* p) throw()
 {
     my::free(p);
 }
 
-void* operator new(std::size_t size, const std::nothrow_t&) noexcept
+inline void* operator new(std::size_t size, const std::nothrow_t&) noexcept
 {
     return my::malloc(size);
 }
 
-void operator delete(void* p, const std::nothrow_t&) noexcept
+inline void operator delete(void* p, const std::nothrow_t&) noexcept
 {
     my::free(p);
 }
 
-void* operator new[](std::size_t size, const std::nothrow_t&) noexcept
+inline void* operator new[](std::size_t size, const std::nothrow_t&) noexcept
 {
     return my::malloc(size);
 }
 
-void operator delete[](void* p, const std::nothrow_t&) noexcept
+inline void operator delete[](void* p, const std::nothrow_t&) noexcept
 {
     my::free(p);
 }
 
-void operator delete(void* p, long unsigned int)
+inline void operator delete(void* p, long unsigned int)
 {
     my::free(p);
 }
 
-void operator delete [](void* p, long unsigned int)
+inline void operator delete [](void* p, long unsigned int)
 {
     my::free(p);
 }
 
-} 
+}

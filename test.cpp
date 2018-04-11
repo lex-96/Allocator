@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_SUITE(allocator_test)
         c2.push(i);
     }
     BOOST_CHECK_EQUAL(my::malloc_counter, 2u);
-}
+ }
 
  BOOST_AUTO_TEST_CASE(my_container) {
      my::malloc_counter = 0;
