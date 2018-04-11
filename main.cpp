@@ -5,10 +5,8 @@
 
 #include "allocator.h"
 #include "container.h"
+#include "factorial.h"
 
-constexpr int factorial (int n) {
-    return n > 0 ? n * factorial(n - 1) : 1;
-}
 
 int main()
 {
