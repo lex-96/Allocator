@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_CASE(my_container_custom_allocator_10)
      c3.reserve(10);
 
      for (int i = 0; i < 10; ++i) {
-         c3.push(i);
+         c3.push_back(i);
      }
      int i = 0;
      for(const auto& e : c3) {
@@ -58,6 +58,10 @@ BOOST_AUTO_TEST_CASE(my_container_custom_allocator_10)
      auto m = std::map<int, int, std::less<int>, my::allocator<std::pair<const int, int>, 10> >{ };
 
      int i = 0;
+     while( i < 10) {
+         m[i] = factorial(i++);
+     }
+     i = 0;
      for(const auto& p : m) {
          BOOST_CHECK_EQUAL(p.first, i);
          BOOST_CHECK_EQUAL(p.second, factorial(i++));
