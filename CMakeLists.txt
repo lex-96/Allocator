@@ -6,6 +6,8 @@ find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
 add_executable(allocator_cli main.cpp)
 
+add_library(allocator new_delete.cpp)
+
 add_executable(test_cli test.cpp)
 
 set_target_properties(allocator_cli test_cli PROPERTIES
