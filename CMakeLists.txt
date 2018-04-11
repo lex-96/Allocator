@@ -41,4 +41,8 @@ add_test(my_container_custom_allocator_10 test_cli)
 
 add_test(my_container test_cli)
 
+add_test(my_container_reserve test_cli)
+
+add_test(map_with_my_alloc test_cli)
+
 
