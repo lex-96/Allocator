@@ -6,18 +6,20 @@
 
 namespace my {
 
-  std::size_t alloc_counter = 0;
+  std::size_t free_counter = 0;
+
+  std::size_t malloc_counter = 0;
 
   void* malloc(std::size_t size)  throw (std::bad_alloc)
   {
     void* p = std::malloc(size);
-     ++alloc_counter;
+     ++malloc_counter;
     return p;
   }
 
   void free(void* p) noexcept
   {
-    --alloc_counter;
+    ++free_counter;
     std::free(p);
     return;
   }
