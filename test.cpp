@@ -18,7 +18,7 @@ BOOST_AUTO_TEST_CASE(my_container_custom_allocator_10)
     for (int i = 0; i < 10; ++i) {
         c2.push(i);
     }
-//    BOOST_CHECK_EQUAL(my::malloc_counter, 2u);
+    BOOST_CHECK_EQUAL(my::malloc_counter, 2u);
 }
 
  BOOST_AUTO_TEST_CASE(my_container)
@@ -29,10 +29,10 @@ BOOST_AUTO_TEST_CASE(my_container_custom_allocator_10)
      for (int i = 0; i < 10; ++i) {
          c1.push_back(i);
      }
-//     int i = 0;
-//     for(const auto& e : c1) {
-//         BOOST_CHECK_EQUAL(e, i++);
-//     }
+     int i = 0;
+     for(const auto& e : c1) {
+         BOOST_CHECK_EQUAL(e, i++);
+     }
 //     BOOST_CHECK_EQUAL(my::malloc_counter, 10u);
  }
 
@@ -45,10 +45,10 @@ BOOST_AUTO_TEST_CASE(my_container_custom_allocator_10)
      for (int i = 0; i < 10; ++i) {
          c3.push_back(i);
      }
-//     int i = 0;
-//     for(const auto& e : c3) {
-//         BOOST_CHECK_EQUAL(e, i++);
-//     }
+     int i = 0;
+     for(const auto& e : c3) {
+         BOOST_CHECK_EQUAL(e, i++);
+     }
 //     BOOST_CHECK_EQUAL(my::malloc_counter, 1u);
  }
 
