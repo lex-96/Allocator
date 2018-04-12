@@ -61,11 +61,11 @@ BOOST_AUTO_TEST_CASE(my_container_custom_allocator_10)
      while( i < 10) {
          m[i] = factorial(i++);
      }
-     i = 0;
-     for(const auto& p : m) {
-         BOOST_CHECK_EQUAL(p.first, i);
-         BOOST_CHECK_EQUAL(p.second, factorial(i++));
-     }
+//     i = 0;
+//     for(const auto& p : m) {
+//         BOOST_CHECK_EQUAL(p.first, i);
+//         BOOST_CHECK_EQUAL(p.second, factorial(i++));
+//     }
 //     BOOST_CHECK_EQUAL(my::malloc_counter, 2u);
  }
 
