@@ -63,7 +63,6 @@ BOOST_AUTO_TEST_CASE(my_container_custom_allocator_10)
      }
      i = 0;
      for(const auto& p : m) {
-//         BOOST_CHECK( p.first ==  i );
          BOOST_CHECK(  p.second == factorial(i) );
          ++i;
      }
