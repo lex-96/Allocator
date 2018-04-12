@@ -10,7 +10,8 @@ namespace my {
 
 
 template< class T, class Allocator = std::allocator<T> >
-class container {
+class container 
+{
 public:
     typedef  T  value_type;
     typedef Allocator allocator_type;
@@ -25,16 +26,19 @@ public:
 
     container() : size(0), capacity(0), _begin(nullptr)  { }
 
-    ~container() {
+    ~container() 
+    {
         deallocate();
     }
 
-    void deinitalize (pointer begin_, size_type count) {
+    void deinitalize (pointer begin_, size_type count) 
+    {
         for (; count > 0; --count, ++begin_)
             allocator.destroy(begin_);
     }
 
-    void deallocate () {
+    void deallocate ()
+    {
         deinitalize(_begin, size);
         allocator.deallocate(_begin, capacity);
 
@@ -42,7 +46,8 @@ public:
         size = capacity = 0;
     }
 
-    size_type get_size() const {
+    size_type get_size() const 
+    {
         return size;
     }
 
@@ -75,25 +80,30 @@ public:
         return _begin[size - 1];
     }
 
-    const_reference back() const {
+    const_reference back() const 
+    {
         assert (size > 0);
         return _begin[size - 1];
     }
 
-    iterator end() {
+    iterator end()
+    {
         return iterator(_begin + size);
     }
 
-    iterator begin() {
+    iterator begin() 
+    {
         return iterator(_begin);
     }
 
-    void unitialized_copy (const_pointer begin, const_pointer end, pointer dest) {
+    void unitialized_copy (const_pointer begin, const_pointer end, pointer dest) 
+    {
         for(; begin != end; ++begin, ++ dest)
             allocator.construct(dest, *begin);
     }
 
-    void push_back(const T& value) {
+    void push_back(const T& value) 
+    {
         if (size == capacity){
             size_type cap = capacity + 1;
             pointer begin_ = allocator.allocate(cap);
@@ -110,13 +120,15 @@ public:
         ++size;
     }
 
-    void push(const T& value) {
+    void push(const T& value) 
+    {
         _begin = allocator.allocate(capacity);
         allocator.construct(_begin + size, value);
         ++size;
     }
 
-    void pop_back() {
+    void pop_back() 
+    {
         assert (size > 0);
         allocator.destroy(_begin + (size - 1));
         --size;
@@ -126,7 +138,8 @@ public:
         return (size == 0) ? true : false;
     }
 
-    void reserve(size_type capacity_) {
+    void reserve(size_type capacity_) 
+    {
         if (capacity_ > capacity) {
             pointer begin_ = allocator.allocate(capacity_);
             unitialized_copy(_begin , _begin+ size, begin_);
@@ -136,7 +149,8 @@ public:
         }
     }
 
-    void clear () {
+    void clear () 
+    {
         deinitalize(_begin, size);
         size = 0;
     }
