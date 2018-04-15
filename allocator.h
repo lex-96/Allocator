@@ -35,6 +35,8 @@ public:
         pool.resize(1 + index/capacity);
         pool[index/capacity].resize(capacity);
         T* p = reinterpret_cast<T*>(&pool[index/capacity][index%capacity]);
+        if(!p)
+            throw std::bad_alloc();
         index += n;
         return p;
     }

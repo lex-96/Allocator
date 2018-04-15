@@ -24,14 +24,14 @@ public:
     typedef  RandomAccessIterator<T> iterator;
     typedef  RandomAccessIterator<const T> const_iterator;
 
-    container() : size(0), capacity(0), _begin(nullptr)  { }
+    container() : size(0), capacity(0), _begin(nullptr) { }
 
     ~container() 
     {
         deallocate();
     }
 
-    void deinitalize (pointer begin_, size_type count) 
+    void deinitalize (pointer begin_, size_type count)
     {
         for (; count > 0; --count, ++begin_)
             allocator.destroy(begin_);
@@ -39,10 +39,10 @@ public:
 
     void deallocate ()
     {
-        deinitalize(_begin, size);
-        allocator.deallocate(_begin, capacity);
+        deinitalize(_begin.get(), size);
+        allocator.deallocate(_begin.release(), capacity);
 
-        _begin = nullptr;
+        _begin.reset(nullptr);
         size = capacity = 0;
     }
 
@@ -56,12 +56,14 @@ public:
     }
 
     reference operator[] (size_type index) {
-        assert(index < size);
+        if (index > size)
+            throw std::out_of_range("wrong index");
         return _begin[index];
     }
 
     const_reference at(size_type index) const {
-        assert(index < size);
+        if (index > size)
+            throw std::out_of_range("wrong index");
         return _begin[index];
     }
 
@@ -88,12 +90,12 @@ public:
 
     iterator end()
     {
-        return iterator(_begin + size);
+        return iterator(_begin.get() + size);
     }
 
     iterator begin() 
     {
-        return iterator(_begin);
+        return iterator(_begin.get());
     }
 
     void unitialized_copy (const_pointer begin, const_pointer end, pointer dest) 
@@ -107,24 +109,28 @@ public:
         if (size == capacity){
             size_type cap = capacity + 1;
             pointer begin_ = allocator.allocate(cap);
+            unitialized_copy(_begin.get(), _begin.get() + size, begin_);
 
-            unitialized_copy(_begin, _begin + size, begin_);
+            if (_begin != nullptr) {
+                deinitalize(_begin.get(), size);
+                allocator.deallocate(_begin.release(), capacity);
+            }
 
-            deinitalize(_begin, size);
-            allocator.deallocate(_begin, capacity);
-
-            _begin = begin_;
+             _begin = std::unique_ptr<T>(begin_);
             capacity = cap;
         }
-        allocator.construct(_begin + size, value);
+        allocator.construct(_begin.get() + size, value);
         ++size;
     }
 
     void push(const T& value) 
     {
-        _begin = allocator.allocate(capacity);
-        allocator.construct(_begin + size, value);
+         if (!_begin)
+              _begin.reset(allocator.allocate(capacity));
+
+        allocator.construct(_begin.get() + size, value);
         ++size;
+        ++capacity;
     }
 
     void pop_back() 
@@ -142,26 +148,29 @@ public:
     {
         if (capacity_ > capacity) {
             pointer begin_ = allocator.allocate(capacity_);
-            unitialized_copy(_begin , _begin+ size, begin_);
-            deallocate();
-            _begin = begin_;
+            unitialized_copy(_begin.get() , _begin.get()+ size, begin_);
+
+            if (_begin)
+                deallocate();
+
+            _begin.reset(begin_);
             capacity = capacity_;
         }
     }
 
     void clear () 
     {
-        deinitalize(_begin, size);
+        deallocate();
         size = 0;
+        capacity = 0;
     }
 
 private:
-
     Allocator allocator;
     size_type size = 0;
     size_type capacity = 0;
-    pointer _begin = nullptr;
-
+    std::unique_ptr<T> _begin;
 };
 
 }
+

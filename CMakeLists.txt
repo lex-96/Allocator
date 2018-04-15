@@ -45,4 +45,7 @@ add_test(my_container_reserve test_cli)
 
 add_test(map_with_my_alloc test_cli)
 
+add_test(memory_leak test_cli)
+
+
 
