@@ -1,5 +1,5 @@
 #define BOOST_TEST_MODULE test_main
-#include <boost/test/unit_test.hpp>
+#include <boost/test/included/unit_test.hpp>
 
 #include <map>
 
@@ -24,6 +24,7 @@ BOOST_AUTO_TEST_CASE(my_container_custom_allocator_10)
  BOOST_AUTO_TEST_CASE(my_container)
  {
      my::malloc_counter = 0;
+     my::free_counter = 0;
      my::container<int> c1;
 
      for (int i = 0; i < 10; ++i) {
