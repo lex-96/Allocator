@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_CASE(my_container_custom_allocator_10)
          BOOST_CHECK_EQUAL(e, i++);
      }
      c3.clear();
-     BOOST_CHECK(my::malloc_counter == 1 && my::free_counter == 1);
+     BOOST_CHECK_EQUAL(my::malloc_counter, 1u);
  }
 
  BOOST_AUTO_TEST_CASE(map_with_my_alloc)
