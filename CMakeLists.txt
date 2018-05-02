@@ -11,6 +11,8 @@ find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
+set(TEST_NAME allocator_test)
+
 add_executable(${TEST_NAME} test.cpp)
 
 set_target_properties(${PROJECT_NAME} ${TEST_NAME} PROPERTIES
