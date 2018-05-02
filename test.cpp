@@ -8,7 +8,6 @@
 #include "new_delete.h"
 #include "factorial.h"
 
-BOOST_AUTO_TEST_SUITE(allocator_test)
 
 BOOST_AUTO_TEST_CASE(my_container_custom_allocator_10)
 {
@@ -110,4 +109,3 @@ BOOST_AUTO_TEST_CASE(my_container_custom_allocator_10)
                  my::malloc_counter != 0 && my::free_counter != 0);
  }
 
-BOOST_AUTO_TEST_SUITE_END()
