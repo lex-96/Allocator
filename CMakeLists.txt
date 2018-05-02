@@ -9,26 +9,26 @@ project(allocator VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
-add_executable(allocator_cli main.cpp)
+add_executable(${PROJECT_NAME} main.cpp)
 
-add_executable(test_cli test.cpp)
+add_executable(${TEST_NAME} test.cpp)
 
-set_target_properties(allocator_cli test_cli PROPERTIES
+set_target_properties(${PROJECT_NAME} ${TEST_NAME} PROPERTIES
 	CXX_STANDARD 14
 	CXX_STANDARD_REQUIRED ON
 	COMPILE_OPTIONS -Wpedantic -Wall -Wextra
 )
 
-set_target_properties(test_cli PROPERTIES
+set_target_properties(${TEST_NAME} PROPERTIES
 	COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
 	INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
 )
 
-target_link_libraries(test_cli
+target_link_libraries(${TEST_NAME}
 	${Boost_LIBRARIES}
 )
 
-install(TARGETS allocator_cli RUNTIME DESTINATION bin)
+install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 
@@ -42,15 +42,4 @@ include(CPack)
 
 enable_testing()
 
-add_test(my_container_custom_allocator_10 test_cli)
-
-add_test(my_container test_cli)
-
-add_test(my_container_reserve test_cli)
-
-add_test(map_with_my_alloc test_cli)
-
-add_test(memory_leak test_cli)
-
-
-
+add_test(${TEST_NAME} ${TEST_NAME})
